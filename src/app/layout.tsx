@@ -1,26 +1,25 @@
-"use client";
-import { persistor, store } from "@/store";
-import { Provider } from "react-redux";
-import { PersistGate } from "redux-persist/integration/react";
-import { Geist } from "next/font/google";
-import { cn } from "@/lib/utils";
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import "./globals.css";
+import { Toaster } from 'sonner';
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+const inter = Inter({ subsets: ["latin"] });
 
+export const metadata: Metadata = {
+  title: "DiagramAI - SaaS Diagram Editor",
+  description: "Create beautiful Mermaid diagrams with the help of AI",
+};
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
-    <html lang="en" className={cn("font-sans", geist.variable)}>
-      <body>
-        <Provider store={store}>
-          <PersistGate loading={null} persistor={persistor}>
-            {children}
-          </PersistGate>
-        </Provider>
+    <html lang="en">
+      <body className={inter.className}>
+        {children}
+        <Toaster richColors position="top-right" />
       </body>
     </html>
   );
